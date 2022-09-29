@@ -4,13 +4,13 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project was coded by Oguzhan Yildirim as a guide to the TFT game. It has no commercial purpose.
 
-A few resources to get you started if this is your first Flutter project:
+<h1> Day 1 : Project Start and Coded Home Page </h1>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://i.hizliresim.com/8w7bvik.png" alt="TFT Guide: Day 1" width = "300">
+
+<h1> Day 2 : Coming Soon </h1>
+
+
