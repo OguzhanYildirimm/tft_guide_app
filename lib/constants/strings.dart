@@ -2,5 +2,4 @@
 
 class String {
 	static const MAIN_TITLE = 'TFT GUIDE';
-	static const BASE_TEXT = 'assets/images/champions/';
 }
