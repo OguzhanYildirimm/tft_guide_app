@@ -3,43 +3,27 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:tft_guide_app/constants/strings.dart';
-import 'package:tft_guide_app/core/champions_card_widget.dart';
+import 'package:tft_guide_app/product/champions_card_widget.dart';
 
 import '../constants/text_style.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     const allPaddingEight = EdgeInsets.all(8.0);
     return Scaffold(
       appBar: AppBar(actions: const [ProjectInfoButton()], title: const ProjectTitleText()),
       bottomNavigationBar: const ProjectBottomNavigationBar(),
-      body: Padding(
-        padding: allPaddingEight,
-        child: SingleChildScrollView(
-					child: Column(
-						children: [
-									allChampionsText(),
-							const ChampionsCardWidget(championName: 'Sett', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Katarina', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Teemo', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Jax', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Hecarim', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Khazix', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Garen', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Gragas', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'Ivern', championRole: 'Support', championCost: '4'),
-										const ChampionsCardWidget(championName: 'LeeSin', championRole: 'Support', championCost: '4'),
-						],
-					),
-				),
-      ),
+			body:GetChampionsFromJson() ,
     );
   }
-
-  Text allChampionsText() => Text('All Champions',style: subTitleTextStyle(),textAlign: TextAlign.center,);
 }
 
 
