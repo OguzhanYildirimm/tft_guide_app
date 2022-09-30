@@ -35,7 +35,13 @@ class _GetChampionsFromJsonState extends State<GetChampionsFromJson> {
 
   @override
   Widget build(BuildContext context) {
-    return championList.isEmpty ?  Center(child: CircularProgressIndicator(color: ProjectColors().colorAmber,strokeWidth: 8,)) : listItems(context, championList);
+    return championList.isEmpty
+        ? Center(
+            child: CircularProgressIndicator(
+            color: ProjectColors().colorAmber,
+            strokeWidth: 8,
+          ))
+        : listItems(context, championList);
   }
 }
 
@@ -43,37 +49,47 @@ Widget listItems(BuildContext context, List<Champion> list) {
   return ListView.builder(
     itemCount: list.length,
     itemBuilder: (context, index) {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
-					elevation: 25,
-          child: Padding(
-            padding: const EdgeInsets.only(top:8.0,bottom: 8.0),
-            child: ListTile(
-					leading: GetChampionsImage(championId:list[index].championId),
-					title: Text(list[index].name,style: subTitleTextStyle(),),
-					trailing: IconButton(onPressed: (){}, icon: Icon(Ionicons.arrow_forward_circle_outline)),
-				),
-          ),
-        ),
-      );
+      return championCardWidget(list, index);
     },
   );
 }
 
-Widget get background => Container(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      alignment: Alignment.centerRight,
-      color: Colors.red,
-      child: const Icon(
-        Icons.delete_sweep,
-        size: 35,
-        color: Colors.white,
+Padding championCardWidget(List<Champion> list, int index) {
+  return Padding(
+      padding: championCardWidgetCustomPadding(),
+      child: Card(
+        elevation: 25,
+        child: Padding(
+          padding: championCardWidgetListTilePadding(),
+          child: ListTile(
+            leading: GetChampionImage(championId: list[index].championId),
+            title: Text(
+              list[index].name,
+              style: subTitleTextStyle(),
+            ),
+            trailing: championCardWidgetIconButton(),
+          ),
+        ),
       ),
     );
+}
 
-class GetChampionsImage extends StatelessWidget {
-  const GetChampionsImage({
+EdgeInsets championCardWidgetListTilePadding() => const EdgeInsets.only(top: 8.0, bottom: 8.0);
+
+EdgeInsets championCardWidgetCustomPadding() => const EdgeInsets.all(8.0);
+
+IconButton championCardWidgetIconButton() {
+  return IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Ionicons.arrow_forward_outline,
+                color: ProjectColors().colorAmber,
+                size: 30,
+              ));
+}
+
+class GetChampionImage extends StatelessWidget {
+  const GetChampionImage({
     Key? key,
     this.championId,
   }) : super(key: key);
