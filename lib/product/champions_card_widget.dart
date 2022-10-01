@@ -2,24 +2,23 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:tft_guide_app/constants/text_style.dart';
 import 'package:tft_guide_app/constants/theme.dart';
 import 'package:tft_guide_app/core/model/champions.dart';
 
-class GetChampionsFromJson extends StatefulWidget {
-  const GetChampionsFromJson({super.key});
+class ChampionsCardWidget extends StatefulWidget {
+  const ChampionsCardWidget({super.key});
 
   @override
-  State<GetChampionsFromJson> createState() => _GetChampionsFromJsonState();
+  State<ChampionsCardWidget> createState() => _ChampionsCardWidgetState();
 }
 
-class _GetChampionsFromJsonState extends State<GetChampionsFromJson> {
+class _ChampionsCardWidgetState extends State<ChampionsCardWidget> {
   List<Champion> championList = <Champion>[];
-  final String localJsonPath = 'assets/json/champions.json';
+  final String localChampionsJsonPath = 'assets/json/champions.json';
 
-  Future<void> loadLocalJson() async {
-    var data = await rootBundle.loadString(localJsonPath);
+  Future<void> loadLocalChampionsJson() async {
+    var data = await rootBundle.loadString(localChampionsJsonPath);
     List<dynamic> decodedJson = json.decode(data);
     championList = decodedJson.map((user) => Champion.fromMap(user)).toList();
     setState(() {
@@ -30,7 +29,7 @@ class _GetChampionsFromJsonState extends State<GetChampionsFromJson> {
   @override
   void initState() {
     super.initState();
-    loadLocalJson();
+    loadLocalChampionsJson();
   }
 
   @override
@@ -66,35 +65,28 @@ Padding championCardWidget(List<Champion> list, int index) {
             title: Text(
               list[index].name,
               style: subTitleTextStyle(),
+							textAlign: TextAlign.center,
             ),
-            trailing: championCardWidgetIconButton(),
           ),
         ),
       ),
     );
 }
 
-EdgeInsets championCardWidgetListTilePadding() => const EdgeInsets.only(top: 8.0, bottom: 8.0);
+EdgeInsets championCardWidgetListTilePadding() => const EdgeInsets.only(top: 4.0, bottom: 4.0);
 
-EdgeInsets championCardWidgetCustomPadding() => const EdgeInsets.all(8.0);
+EdgeInsets championCardWidgetCustomPadding() => const EdgeInsets.all(4.0);
 
-IconButton championCardWidgetIconButton() {
-  return IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Ionicons.arrow_forward_outline,
-                color: ProjectColors().colorAmber,
-                size: 30,
-              ));
-}
 
 class GetChampionImage extends StatelessWidget {
   const GetChampionImage({
     Key? key,
     this.championId,
   }) : super(key: key);
+  // ignore: constant_identifier_names
   static const BASE_TEXT = 'assets/images/champions/';
 
+  // ignore: prefer_typing_uninitialized_variables
   final championId;
   @override
   Widget build(BuildContext context) {

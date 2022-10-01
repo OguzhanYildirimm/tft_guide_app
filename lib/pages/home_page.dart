@@ -6,6 +6,8 @@ import 'package:tft_guide_app/constants/strings.dart';
 import 'package:tft_guide_app/product/champions_card_widget.dart';
 
 import '../constants/text_style.dart';
+import '../product/comps_card_widget.dart';
+import '../product/items_card_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,14 +17,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+	int selectedIndex = 0;
+	static const List<Widget> _widgetOptions = <Widget>[
+    ChampionsCardWidget(),
+    CompsCardWidget(),
+		ItemsCardWidget(),
+  ];
+	void _onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    const allPaddingEight = EdgeInsets.all(8.0);
     return Scaffold(
       appBar: AppBar(actions: const [ProjectInfoButton()], title: const ProjectTitleText()),
-      bottomNavigationBar: const ProjectBottomNavigationBar(),
-			body:GetChampionsFromJson() ,
+      bottomNavigationBar: bottomNavBar(),
+			body:_widgetOptions.elementAt(selectedIndex),
     );
+  }
+
+  BottomNavigationBar bottomNavBar() {
+    return BottomNavigationBar(
+    items: bottomNavBarItems,
+			currentIndex: selectedIndex,
+    onTap: _onItemTapped,
+  );
+  }
+
+  List<BottomNavigationBarItem> get bottomNavBarItems {
+    return const [
+      BottomNavigationBarItem(icon: Icon(Ionicons.accessibility_outline), label: 'Champions'),
+      BottomNavigationBarItem(icon: Icon(Ionicons.game_controller_outline), label: 'Comps'),
+      BottomNavigationBarItem(icon: Icon(Ionicons.trophy_outline), label: 'Items')
+    ];
   }
 }
 
@@ -55,41 +83,6 @@ class ProjectInfoButton extends StatelessWidget {
         size: 24,
       ),
       onPressed: () {},
-    );
-  }
-}
-
-class ProjectFloatingActionButton extends StatelessWidget {
-  const ProjectFloatingActionButton({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-        backgroundColor: Colors.grey[800],
-        onPressed: () {},
-        child: const Icon(
-          Icons.home,
-          size: 35,
-          color: Colors.white,
-        ));
-  }
-}
-
-class ProjectBottomNavigationBar extends StatelessWidget {
-  const ProjectBottomNavigationBar({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Ionicons.accessibility_outline), label: 'Champions'),
-        BottomNavigationBarItem(icon: Icon(Ionicons.game_controller_outline), label: 'Comps'),
-        BottomNavigationBarItem(icon: Icon(Ionicons.trophy_outline), label: 'Items')
-      ],
     );
   }
 }
