@@ -15,21 +15,20 @@ class ChampionsCardWidget extends StatefulWidget {
 
 class _ChampionsCardWidgetState extends State<ChampionsCardWidget> {
   List<Champion> championList = <Champion>[];
-  final String localChampionsJsonPath = 'assets/json/champions.json';
 
-  Future<void> loadLocalChampionsJson() async {
-    var data = await rootBundle.loadString(localChampionsJsonPath);
-    List<dynamic> decodedJson = json.decode(data);
-    championList = decodedJson.map((user) => Champion.fromMap(user)).toList();
-    setState(() {
+	Future<void> loadLocalChampionJson() async {
+		String jsonString = await rootBundle.loadString('assets/json/champions.json');
+		List<dynamic> jsonResponse = json.decode(jsonString).toList();
+		championList = jsonResponse.map((v) => Champion.fromJson(v)).toList();
+		setState(() {
       championList;
     });
-  }
+	}
 
   @override
   void initState() {
     super.initState();
-    loadLocalChampionsJson();
+    loadLocalChampionJson();
   }
 
   @override
@@ -63,10 +62,10 @@ Padding championCardWidget(List<Champion> list, int index) {
           child: ListTile(
             leading: GetChampionImage(championId: list[index].championId),
             title: Text(
-              list[index].name,
+              list[index].name.toString(),
               style: subTitleTextStyle(),
-							textAlign: TextAlign.center,
             ),
+						subtitle: Text("Cost : ${list[index].cost.toString()} Gold",style: textStyle(),),
           ),
         ),
       ),

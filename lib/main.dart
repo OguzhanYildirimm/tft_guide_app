@@ -28,7 +28,9 @@ class MyApp extends StatelessWidget {
                 selectedIconTheme: const IconThemeData(size: 28),
                 selectedLabelStyle: bottomNavBarTextStyle(),
                 unselectedLabelStyle: bottomNavBarTextStyle()),
-								cardTheme: const CardTheme(shape: RoundedRectangleBorder(),elevation: 5)),
+            cardTheme: const CardTheme(shape: RoundedRectangleBorder(), elevation: 5),
+            outlinedButtonTheme:
+                OutlinedButtonThemeData(style: OutlinedButton.styleFrom(foregroundColor: Colors.amber))),
         home: const HomePage());
   }
 }

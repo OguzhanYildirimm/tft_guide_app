@@ -6,7 +6,7 @@ import 'package:tft_guide_app/constants/strings.dart';
 import 'package:tft_guide_app/product/champions_card_widget.dart';
 
 import '../constants/text_style.dart';
-import '../product/comps_card_widget.dart';
+import '../product/comps_widget.dart';
 import '../product/items_card_widget.dart';
 
 class HomePage extends StatefulWidget {
