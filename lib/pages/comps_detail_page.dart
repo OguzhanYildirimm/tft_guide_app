@@ -21,8 +21,8 @@ class CompsDetailPage extends StatefulWidget {
 class _CompsDetailPageState extends State<CompsDetailPage> {
   List<Champion> championList = <Champion>[];
   List<Comps> compsList = <Comps>[];
-	
-	
+	List<String> traitsList = [];
+
   Future<void> loadLocalCompsJson() async {
     String jsonString = await rootBundle.loadString('assets/json/traits.json');
     List<dynamic> jsonResponse = json.decode(jsonString).toList();
@@ -31,22 +31,25 @@ class _CompsDetailPageState extends State<CompsDetailPage> {
       compsList;
     });
   }
+
   Future<void> loadLocalChampionJson() async {
     String jsonString = await rootBundle.loadString('assets/json/champions.json');
     List<dynamic> jsonResponse = json.decode(jsonString).toList();
     championList = jsonResponse.map((v) => Champion.fromJson(v)).toList();
     setState(() {
       championList;
-			
+			traitsList;
     });
   }
+
   @override
   void initState() {
     super.initState();
     loadLocalCompsJson();
     loadLocalChampionJson();
+		print(traitsList);
   }
-	
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,16 +61,31 @@ class _CompsDetailPageState extends State<CompsDetailPage> {
           padding: const EdgeInsets.all(8.0),
           child: Center(
             child: Column(
-              children: [GetCompsImage(
-                        compsName: compsList[widget.index].name?.toLowerCase(),
-                      ),
-                      _topLineWidget(),
-                      Text(
-                        compsList[widget.index].description.toString(),
-                        style: subTextStyle(),
-												textAlign: TextAlign.center,
-                      ),
-                      _bottomLineWidget(),
+              children: [
+                GetCompsImage(
+                  compsName: compsList[widget.index].name?.toLowerCase(),
+                ),
+                _topLineWidget(),
+                Text(
+                  compsList[widget.index].description.toString(),
+                  style: subTextStyle(),
+                  textAlign: TextAlign.center,
+                ),
+                _bottomLineWidget(),
+                Container(
+                  height: 125,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 20,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: compsList[widget.index].key.toString() == championList[index].traits![2].toString()
+                              ? Text(championList[index].name.toString())
+                              : Text('Yok'));
+                    },
+                  ),
+                )
               ],
             ),
           ),
@@ -96,4 +114,3 @@ class _CompsDetailPageState extends State<CompsDetailPage> {
     );
   }
 }
-
