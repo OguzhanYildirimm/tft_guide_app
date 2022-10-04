@@ -31,4 +31,14 @@ This project was coded by Oguzhan Yildirim as a guide to the TFT game. It has no
   </tr>
 </table>
 
+<h1> Day 4 : Comps Page and Comps Detail Page Coded </h1>
+
+<table style="width:100%">
+  <tr>
+    <td><img src="https://i.hizliresim.com/h3bb6re.png" alt="TFT Guide: Day 3" width = "300"></td>
+    <td><img src="https://i.hizliresim.com/l45d6fs.png" alt="TFT Guide: Day 3" width = "300"></td>
+    <td><img src="https://i.hizliresim.com/ji29ks6.png" alt="TFT Guide: Day 3" width = "300"></td>
+  </tr>
+</table>
+
 
