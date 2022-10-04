@@ -21,4 +21,6 @@ class Champion {
     data['traits'] = traits;
     return data;
   }
+
+
 }

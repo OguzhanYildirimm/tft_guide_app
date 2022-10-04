@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:tft_guide_app/constants/text_style.dart';
 import 'package:tft_guide_app/product/comps_widget.dart';
 
+import '../constants/theme.dart';
 import '../core/model/champions.dart';
 import '../core/model/comps.dart';
 
@@ -18,9 +19,10 @@ class CompsDetailPage extends StatefulWidget {
 }
 
 class _CompsDetailPageState extends State<CompsDetailPage> {
-	List<Champion> championList = <Champion>[];
+  List<Champion> championList = <Champion>[];
   List<Comps> compsList = <Comps>[];
-
+	
+	
   Future<void> loadLocalCompsJson() async {
     String jsonString = await rootBundle.loadString('assets/json/traits.json');
     List<dynamic> jsonResponse = json.decode(jsonString).toList();
@@ -29,42 +31,50 @@ class _CompsDetailPageState extends State<CompsDetailPage> {
       compsList;
     });
   }
-
+  Future<void> loadLocalChampionJson() async {
+    String jsonString = await rootBundle.loadString('assets/json/champions.json');
+    List<dynamic> jsonResponse = json.decode(jsonString).toList();
+    championList = jsonResponse.map((v) => Champion.fromJson(v)).toList();
+    setState(() {
+      championList;
+			
+    });
+  }
   @override
   void initState() {
     super.initState();
     loadLocalCompsJson();
+    loadLocalChampionJson();
   }
-
+	
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${compsList[widget.index].name} Details"),
-        centerTitle: false,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
-        child: Column(
-          children: [
-            GetCompsImage(
-              compsName: compsList[widget.index].name!.toLowerCase(),
-            ),
-            topLineWidget(),
-            Text(
-              compsList[widget.index].description.toString(),
-              style: subTextStyle(),
-              textAlign: TextAlign.center,
-            ),
-            _bottomLineWidget(),
-						
-          ],
+        appBar: AppBar(
+          title: Text('${compsList[widget.index].name} Details'),
+          centerTitle: false,
         ),
-      ),
-    );
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              children: [GetCompsImage(
+                        compsName: compsList[widget.index].name?.toLowerCase(),
+                      ),
+                      _topLineWidget(),
+                      Text(
+                        compsList[widget.index].description.toString(),
+                        style: subTextStyle(),
+												textAlign: TextAlign.center,
+                      ),
+                      _bottomLineWidget(),
+              ],
+            ),
+          ),
+        ));
   }
 
-  Padding topLineWidget() {
+  Padding _topLineWidget() {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0, bottom: 10.0),
       child: Container(
@@ -77,7 +87,7 @@ class _CompsDetailPageState extends State<CompsDetailPage> {
 
   Padding _bottomLineWidget() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10.0,bottom: 5),
+      padding: const EdgeInsets.only(top: 10.0, bottom: 5),
       child: Container(
         height: 1.5,
         width: 200,
@@ -86,3 +96,4 @@ class _CompsDetailPageState extends State<CompsDetailPage> {
     );
   }
 }
+
