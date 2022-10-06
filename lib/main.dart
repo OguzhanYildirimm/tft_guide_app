@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
                 unselectedLabelStyle: bottomNavBarTextStyle()),
             cardTheme: const CardTheme(shape: RoundedRectangleBorder(), elevation: 5),
             outlinedButtonTheme:
-                OutlinedButtonThemeData(style: OutlinedButton.styleFrom(foregroundColor: Colors.amber))),
+                OutlinedButtonThemeData(style: OutlinedButton.styleFrom(foregroundColor: ProjectColors().colorAmber))),
         home: const HomePage());
   }
 }
